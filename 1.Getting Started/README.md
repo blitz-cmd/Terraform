@@ -18,6 +18,7 @@ $ terraform plan -out=<filename>
 ```
 $ terraform apply
 $ terraform apply -auto-approve
+$ terraform apply -refresh-only
 ```
 ### Refresh the tf state file
 ```
