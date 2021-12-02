@@ -40,10 +40,10 @@ $ terraform destroy
 ```
 # Terraform resources
 
-[HashiCorp Terraform Associate Certification Course](https://www.youtube.com/watch?v=V4waklkBC38&t)
-[Terraform Registry Provider AWS Docs](https://registry.terraform.io/providers/hashicorp/aws/latest)
-[Terraform Basic Docs AWS](https://learn.hashicorp.com/tutorials/terraform/aws-build?in=terraform/aws-get-started)
-[Terraform AWS Docs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
-[Terraform Modules](https://registry.terraform.io/browse/modules)
-[Terraform Cloud](https://www.terraform.io/cloud)
-[Cloud Init](https://cloudinit.readthedocs.io/en/latest/topics/examples.html)
+[HashiCorp Terraform Associate Certification Course](https://www.youtube.com/watch?v=V4waklkBC38&t)</br>
+[Terraform Registry Provider AWS Docs](https://registry.terraform.io/providers/hashicorp/aws/latest)</br>
+[Terraform Basic Docs AWS](https://learn.hashicorp.com/tutorials/terraform/aws-build?in=terraform/aws-get-started)</br>
+[Terraform AWS Docs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)</br>
+[Terraform Modules](https://registry.terraform.io/browse/modules)</br>
+[Terraform Cloud](https://www.terraform.io/cloud)</br>
+[Cloud Init Docs](https://cloudinit.readthedocs.io/en/latest/topics/examples.html)</br>

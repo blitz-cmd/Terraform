@@ -20,7 +20,7 @@
 ### 6) Provided remote access to the Terraform Cloud
 
 ### Standard Module Structure
-|—— main&#46;tf
-|—— variables&#46;tf
-|—— outputs&#46;tf
+|—— main&#46;tf</br>
+|—— variables&#46;tf</br>
+|—— outputs&#46;tf</br>
 ### 7) Applied the changes
