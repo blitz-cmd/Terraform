@@ -1,43 +1,26 @@
-# Terraform Basics
+# Getting Started
 
-### Initialise the folder to add all the dependencies & configurations
+### 1) Adding AWS Provider
+### 2) Added EC2 creation resource
+### 3) Created custom variable for AMI in .tfvars file
+#### **Note:**
 ```
-$ terraform init
+- terraform.tfvars - It will be automatically loaded when running terraform apply.
+- dev.tfvars       - It will not automatically loaded. As the starting name is not terraform
+- dev.auto.tfvars  - It will be automatically loaded
 ```
-### To format & validate the configurations
+### 4) Added VPC module from Terraform Registry
 ```
-$ terraform fmt
-$ terraform validate
+- Create VPC
+- Add 3 private & public subnets each in 3 availability zone
+- Enable NAT gateway for private subnets
+- Enable VPN Gateway
 ```
-### Get blueprint of configurations
-```
-$ terraform plan
-$ terraform plan -out=<filename>
-```
-### To apply the configurations
-```
-$ terraform apply
-$ terraform apply -auto-approve
-$ terraform apply -refresh-only
-```
-### Refresh the tf state file
-```
-$ terraform refresh
-```
-### Display output
-```
-$ terraform output
-```
-### Inspect state of configuration
-```
-$ terraform show
-$ terraform state list
-```
-### To destroy the config.
-```
-$ terraform destroy
-```
+### 5) Showed Public IPv4 Address output after successfully execution of the above commands
+### 6) Provided remote access to the Terraform Cloud
+
 ### Standard Module Structure
-|—— main.tf
-|—— variables.tf
-|—— outputs.tf
+|—— main&#46;tf
+|—— variables&#46;tf
+|—— outputs&#46;tf
+### 7) Applied the changes
