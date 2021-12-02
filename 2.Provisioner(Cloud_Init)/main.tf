@@ -72,9 +72,46 @@ resource "aws_instance" "my_server" {
   key_name      = aws_key_pair.terra_key.key_name
   vpc_security_group_ids = [ aws_security_group.terra_sg.id ]
   user_data = data.template_file.user_data.rendered
+  /*provisioner "local-exec" {
+    command = "echo ${self.private_ip} >> private_ips.txt"
+  }*/
+
+  /*
+  provisioner "remote-exec" {
+    inline = [
+      "echo ${self.private_ip} >> /home/ec2-user/private_ips.txt",
+    ]
+    connection {
+    type     = "ssh"
+    user     = "ec2-user"
+    host     = "${self.public_ip}"
+    private_key="${file("/home/deep/.ssh/id_rsa")}"
+  }
+  }*/
+
+  provisioner "file" {
+    content="moon"
+    destination="/home/ec2-user/moon.txt"
+    connection {
+    type     = "ssh"
+    user     = "ec2-user"
+    host     = "${self.public_ip}"
+    private_key="${file("/home/deep/.ssh/id_rsa")}"
+  }
+  }
+
   tags = {
     Name = "MyServer"
   }
+}
+
+resource "null_resource" "status"{
+  provisioner "local-exec" {
+    command="aws ec2 wait instance-status-ok --instance-id ${aws_instance.my_server.id}"
+  }
+  depends_on=[
+    aws_instance.my_server
+  ]
 }
 
 output "Public_IPv4" {
