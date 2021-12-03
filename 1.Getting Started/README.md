@@ -3,12 +3,6 @@
 ### 1) Adding AWS Provider
 ### 2) Added EC2 creation resource
 ### 3) Created custom variable for AMI in .tfvars file
-#### **Note:**
-```
-- terraform.tfvars - It will be automatically loaded when running terraform apply.
-- dev.tfvars       - It will not automatically loaded. As the starting name is not terraform
-- dev.auto.tfvars  - It will be automatically loaded
-```
 ### 4) Added VPC module from Terraform Registry
 ```
 - Create VPC
