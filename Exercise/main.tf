@@ -13,23 +13,24 @@ provider "aws" {
   region  = "us-east-1"
 }
 
+#Configuring VPC
 resource "aws_vpc" "tf-vpc" {
   cidr_block       = "30.0.0.0/16"
   instance_tenancy = "default"
-
   tags = {
     Name = "tf-vpc"
   }
 }
 
+#Configuring Internet Gateway
 resource "aws_internet_gateway" "tf-ig" {
   vpc_id = aws_vpc.tf-vpc.id
-
   tags = {
     Name = "tf-ig"
   }
 }
 
+#Configuring Public Subnet
 resource "aws_subnet" "tf-pub-sub" {
   vpc_id     = aws_vpc.tf-vpc.id
   cidr_block = "30.0.10.0/24"
@@ -39,6 +40,7 @@ resource "aws_subnet" "tf-pub-sub" {
   }
 }
 
+#Configuring Private Subnet
 resource "aws_subnet" "tf-pri-sub" {
   vpc_id     = aws_vpc.tf-vpc.id
   cidr_block = "30.0.40.0/24"
@@ -48,32 +50,33 @@ resource "aws_subnet" "tf-pri-sub" {
   }
 }
 
+#Configuring Public Route Table
 resource "aws_route_table" "tf-pub-r" {
   vpc_id = aws_vpc.tf-vpc.id
-
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.tf-ig.id
-  }
-
+    gateway_id = aws_internet_gateway.tf-ig.id  
+    }
   tags = {
     Name = "tf-pub-r"
   }
 }
 
+#Configuring Subnet Association with Route Table
 resource "aws_route_table_association" "tf-pub-r-a" {
   subnet_id      = aws_subnet.tf-pub-sub.id
   route_table_id = aws_route_table.tf-pub-r.id
 }
 
+#Configuring Public Route Table
 resource "aws_route_table" "tf-pri-r" {
   vpc_id = aws_vpc.tf-vpc.id
-
   tags = {
     Name = "tf-pri-r"
   }
 }
 
+#Configuring Subnet Association with Route Table
 resource "aws_route_table_association" "tf-pri-r-a" {
   subnet_id      = aws_subnet.tf-pri-sub.id
   route_table_id = aws_route_table.tf-pri-r.id
@@ -83,6 +86,7 @@ variable "personal-ip" {
   type = string
 }
 
+#Configuring EC2 Security Group
 resource "aws_security_group" "tf-ec2-sg" {
   name        = "tf-ec2-sg"
   description = "My EC2 SG"
@@ -124,6 +128,7 @@ resource "aws_security_group" "tf-ec2-sg" {
   }
 }
 
+#Finding AMI using filters for EC2
 data "aws_ami" "amazon" {
   most_recent = true
 
@@ -139,6 +144,7 @@ data "aws_ami" "amazon" {
   owners = ["137112412989"]
 }
 
+#Configuring Instance
 resource "aws_instance" "TF" {
   ami                         = data.aws_ami.amazon.id
   instance_type               = "t2.micro"
@@ -160,6 +166,7 @@ resource "aws_instance" "TF" {
   }
 }
 
+#Configuring RDS Security Group
 resource "aws_security_group" "tf-rds-sg" {
   name        = "tf-rds-sg"
   description = "My RDS SG"
@@ -196,6 +203,8 @@ variable "username" {
 variable "password" {
   type = string
 }
+
+#Configuring Private Subnet 2
 resource "aws_subnet" "tf-pri2-sub" {
   vpc_id     = aws_vpc.tf-vpc.id
   cidr_block = "30.0.30.0/24"
@@ -204,6 +213,8 @@ resource "aws_subnet" "tf-pri2-sub" {
     Name = "tf-pri2-sub"
   }
 }
+
+#Configuring DB Subnet Group
 resource "aws_db_subnet_group" "rds-subnet" {
   name       = "rds-subnet"
   subnet_ids = [aws_subnet.tf-pri-sub.id,aws_subnet.tf-pri2-sub.id]
@@ -213,6 +224,7 @@ resource "aws_db_subnet_group" "rds-subnet" {
   }
 }
 
+#Configuring MySQL RDS
 resource "aws_db_instance" "TF-RDS" {
   allocated_storage    = 20
   storage_type         = "gp2"
@@ -233,6 +245,7 @@ resource "aws_db_instance" "TF-RDS" {
   }
 }
 
+#Displaying Outputs
 output "Instance_Id" {
   value = aws_instance.TF.id
 }
